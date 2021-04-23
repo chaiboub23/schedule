@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script defer>
+            if (localStorage.getItem('json') === null) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var json = JSON.parse(this.responseText);
+                        localStorage.setItem('json', JSON.stringify(json));
+                        console.log(json);
+                        json[0].forEach( (block) => {
+                            document.write(block);
+                            document.write("<br>");
+                        })
+                    }
+                }
+                xmlhttp.open("GET", "test.json", true);
+                xmlhttp.send();
+            }
+            else {
+                var data = JSON.parse(localStorage.getItem('json'));
+                data[0].forEach(element => { 
+                    document.write(element)
+                    document.write('<br>')
+                })
+            }
+        </script>
+    <body>
+        <p id="test"></p>
+    </body>
+</html>
